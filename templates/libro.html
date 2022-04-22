@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Libro{% endblock %}
+{% block content %}
+	<!-- Banner -->
+	<div class="container-fluid">
+		<div id="wrapper">
+			<hr>
+			<div class="row">
+				<div class="col col-12 col-md-6 col-xl-4">
+					<img src="{{ contenido.thumbnailUrl }}">
+                </div>
+					<div class="col col-12 col-md-6 col-xl-8 text-center text-md-left">
+						<h2 class="mt-5 mb-1">Biblioteca</h2>
+						<h3 class="mb-3">{{ contenido.title }}</h3>
+					</div>
+			</div>
+				<hr>
+		</div>
+			{% if contenido.status != "PUBLISH" %}
+				<p>ESTE LIBRO NO SE HA PUBLICADO</p>
+			{% else %}
+				<p>EL LIBRO ESTA PUBLICADO</p>
+			{% endif %}
+			<h2>Numero de paginas: {{ contenido.pageCount }}</h2>
+			<h2>RESUMEN</h2>
+				<a>{{ contenido.shortDescription }}</a><br>
+			<h2>DESCRIPCION</h2>
+				<a>{{ contenido.longDescription }}</a><br>
+			<br>
+			<h2>AUTORES</h2>
+				<ul>
+					{% for autores in contenido.authors -%}
+						<li><a>{{ autores }}</a></li>
+					{% endfor -%}
+				</ul>
+			<h2>CATEGORIAS</h2>
+				<ul>
+					{% for categoria in contenido.categories -%}
+						<li><a href="/categoria/{{categoria}}" style="color: black;">{{ categoria }}</a></li>
+					{% endfor -%}
+				</ul>
+				<a href="/" style="color: black;">Inicio</a>
+	</div>
+{% endblock %}
