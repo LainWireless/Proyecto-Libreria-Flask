@@ -1,11 +1,12 @@
 from flask import Flask, render_template, abort, json
+import os
 app = Flask(__name__)	
 
-f = open('Libreria/books.json')
+f = open('books.json')
 
 datos = json.load(f)
 
-@app.route('/')
+@app.route('/',methods=["GET","POST"])
 def inicio():
 	return render_template("inicio.html",lista_libros=datos)
 
@@ -25,4 +26,5 @@ def categoria(tipo):
                 listacategorias.append(cate)
     return render_template("categoria.html",categoria=tipo,lista_categorias=listacategorias,lista_libros=datos)
 
-app.run('0.0.0.0',5000,debug=True)
+port=os.environ["PORT"]
+app.run('0.0.0.0',int(port),debug=True)
